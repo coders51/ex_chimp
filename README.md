@@ -38,10 +38,27 @@ Add a member to a list
 
 ```elixir
 # With merge fields
-ExChimp.List.add_member("your_list_id", :subscribed, "sub@email.com", 
+ExChimp.List.add_member("your_list_id", :subscribed, "sub@email.com",
                         %{"FULL_NAME" => "Full name"})
 # Without
 ExChimp.List.add_member("your_list_id", :subscribed, "sub@email.com")
+```
+
+Add a update member in a list
+
+```elixir
+# With merge fields
+ExChimp.List.update_member("your_list_id", "user_mailchimp_id", :subscribed, "sub@email.com",
+                        %{"FULL_NAME" => "Full name"})
+# Without
+ExChimp.List.update_member("your_list_id", "user_mailchimp_id", :subscribed, "sub@email.com")
+```
+
+Delete a member from a list
+
+```elixir
+ExChimp.List.delete_member("your_list_id", "user_mailchimp_id")
+
 ```
 
 ## Mix tasks

@@ -54,4 +54,35 @@ defmodule ExChimp.List do
       {:ok, %{body: body}} -> {:ok, body}
     end
   end
+
+
+  @spec update_member(String.t, String.t, member_status, String.t, Map.t) :: {:ok, Map.t} | {:error, String.t}
+  def update_member(list_id, user_id, status, email, merge_fields ) do
+    %{}
+    |> Map.put(:email_address, email)
+    |> Map.put(:status, status)
+    |> Map.put(:merge_fields, merge_fields)
+    |> Poison.encode!
+    |> do_update_member(list_id, user_id)
+  end
+
+  defp do_update_member(data, list_id, user_id) do
+    case Client.put("lists/#{list_id}/members/#{user_id}", data) do
+      {:ok, %{body: %{"status" => 400, "detail" => error}}} -> {:error, error}
+      {:ok, %{body: body}} -> {:ok, body}
+    end
+  end
+
+  @spec delete_member(String.t, String.t) :: {:ok, Map.t} | {:error, String.t}
+  def delete_member(list_id, user_id) do
+    %{}
+    |> do_delete_member(list_id, user_id)
+  end
+
+  defp do_delete_member(data, list_id, user_id) do
+    case Client.delete("lists/#{list_id}/members/#{user_id}", data) do
+      {:ok, %{body: %{"status" => 400, "detail" => error}}} -> {:error, error}
+      {:ok, %{body: body}} -> {:ok, body}
+    end
+  end
 end
