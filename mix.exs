@@ -1,7 +1,7 @@
 defmodule ExChimp.Mixfile do
   use Mix.Project
 
-  @version "0.0.3"
+  @version "0.0.4"
   @description "Basic/minimal Mailchimp API client."
 
   def project do

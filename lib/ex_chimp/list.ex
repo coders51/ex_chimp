@@ -52,6 +52,7 @@ defmodule ExChimp.List do
     case Client.post("lists/#{list_id}/members", data) do
       {:ok, %{body: %{"status" => 400, "detail" => error}}} -> {:error, error}
       {:ok, %{body: body}} -> {:ok, body}
+      {:error, error} -> {:error, error}
     end
   end
 
